@@ -1,0 +1,8 @@
+class_materials/
+__pycache__/
+*.pyc
+.env
+ EOF
+cat .gitignore
+
+
