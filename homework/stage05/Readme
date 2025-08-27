@@ -1,0 +1,25 @@
+## Data Storage
+
+### Folder Structure
+- `data/raw/` — stores raw CSV exports from the notebook or external sources.
+- `data/processed/` — stores cleaned or transformed data in Parquet format for efficient reading/writing.
+
+### Formats Used
+- **CSV** for raw data: human-readable, easy to inspect or share.
+- **Parquet** for processed data: columnar, compressed, fast I/O, preserves dtypes.
+
+### Environment Variables
+- `DATA_DIR_RAW` → path for raw data folder (`data/raw/` by default)
+- `DATA_DIR_PROCESSED` → path for processed data folder (`data/processed/` by default)
+- These are loaded via `.env` using `python-dotenv`.
+
+### Validation Checks
+- Shape check: confirm loaded CSV/Parquet has expected number of rows/columns.
+- Dtype check: numeric columns remain numeric, dates remain datetime.
+- Missing value check: ensure no critical columns have NA after cleaning.
+- Utility functions `write_df` and `read_df` enforce timestamped filenames and handle missing directories.
+
+### Assumptions & Risks
+- Assumes `.env` is present and not committed to GitHub.
+- Assumes Parquet engine (`pyarrow` or `fastparquet`) is installed for processed data.
+- Risk: if CSV/Parquet schema changes, validation functions may fail.
